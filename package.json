@@ -10,11 +10,9 @@
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "buildAppBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
-    "buildRandomBundle": "babel ./client/random ./client/helper --presets @babel/preset-react --out-file ./hosted/randomBundle.js",
     "build": "npm run buildLoginBundle && npm run buildAppBundle",
     "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
-    "watchRandomBundle": "babel --watch ./client/random ./client/helper --presets @babel/preset-react --out-file ./hosted/randomBundle.js",
     "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
@@ -26,7 +24,7 @@
     "Redis",
     "Login"
   ],
-  "author": "Cody Van De Mark",
+  "author": "Jimmie Harkins",
   "license": "Apache 2.0",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -52,6 +50,7 @@
     "mongoose": "^5.9.5",
     "redis": "^3.0.2",
     "serve-favicon": "^2.5.0",
+    "socket.io": "^4.0.1",
     "underscore": "^1.9.2"
   }
 }

@@ -11,6 +11,7 @@ const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const csrf = require('csurf');
 const redis = require('redis');
+const { Server } = require('socket.io');
 //const password = require('./password.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
@@ -87,9 +88,45 @@ app.use((err, req, res, next) => {
 
 router(app);
 
-app.listen(port, (err) => {
+const server = app.listen(port, (err) => {
   if (err) {
     throw err;
   }
   console.log(`Listening on port ${port}`);
+});
+
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+  // let all the clients know about this new connection (i.e. socket)
+  const msg = `NEW CONNECTION: socket.id=${socket.id}`;
+
+  const obj = {
+    date: new Date().toLocaleTimeString(),
+    msg,
+  };
+
+  io.sockets.emit('messageAll', obj); // send it to everybody
+  console.log(msg);
+
+  // hook up three events for this particular socket
+  socket.on('disconnect', (str) => {
+    const msg = `DISCONNECTION: socket.id=${socket.id} - str = ${str}`;
+    const obj = {
+      date: new Date().toLocaleTimeString(),
+      msg,
+    };
+    io.sockets.emit('messageAll', obj); // send it to everybody
+    console.log(msg);
+  });
+
+  socket.on('error', (error) => {
+    console.log(`socket.id=${socket.id} error with error = ${error}`);
+  });
+
+  socket.on('message', (obj) => {
+    console.log('Received:', obj);
+    obj.date = new Date().toLocaleTimeString();
+    socket.broadcast.emit('message', obj); // just send it to those that didn't send the original obj
+  });
 });

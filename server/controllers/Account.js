@@ -30,7 +30,7 @@ const login = (request, response) => {
 
     req.session.account = Account.AccountModel.toAPI(account);
 
-    return res.json({ redirect: '/maker' });
+    return res.json({ redirect: '/game' });
   });
 };
 
@@ -71,7 +71,7 @@ const signup = (request, response) => {
       }
 
       req.session.account = Account.AccountModel.toAPI(doc);
-      return res.json({ redirect: '/maker' });
+      return res.json({ redirect: '/game' });
     });
   });
 };

@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>DomoMaker</title>
+  <title>NRTMSRTS</title>
   <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
@@ -9,19 +9,35 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link rel="stylesheet" type="text/css" href="/assets/gameStyle.css"/>
 </head>
 <body>
-  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
+  <nav>
     <div class="navlink"><a href="/logout">Log out</a></div>
-    <div class="navlink"><a href="/makeRandom">Random Domos</a></div>
   </nav>
-  <section id="makeDomo">
+  <p>NRTMSRTS</p>
+  <section id="game">
+
   </section>
-  <section id="domos">
+  <section id="chat">
+    <section>
+	<p>Username: <input type=text id=txtUsername></p>
+	<p>Message: <input type=text id=txtMsg></p>
+	<p><button id=btnSend>Send</button>
+</section>
+
+<section>
+	<h2>Server Messages</h2>
+	<div id=lblStatus><p>Type in a username and a message, then click "Send".</p></div>
+</section>
+
+<section>
+	<h2>Chat Messages</h2>
+	<div id=lblChat></div>
+</section>
   </section>
-  <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage"></span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
-  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
   <script src="/assets/bundle.js"></script>
 </body>
 </html>
