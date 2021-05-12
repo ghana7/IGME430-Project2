@@ -12,11 +12,11 @@ const url = require('url');
 const csrf = require('csurf');
 const redis = require('redis');
 const { Server } = require('socket.io');
-const password = require('./password.js');
+//const password = require('./password.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const dbUrl = process.env.MONGODB_URI || password.getMongoString();
+const dbUrl = process.env.MONGODB_URI;// || password.getMongoString();
 
 // Setup mongoose options to use newer functionality
 const mongooseOptions = {
