@@ -12,11 +12,11 @@ const url = require('url');
 const csrf = require('csurf');
 const redis = require('redis');
 const { Server } = require('socket.io');
-// const password = require('./password.js');
+const password = require('./password.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const dbUrl = process.env.MONGODB_URI;// || password.getMongoString();
+const dbUrl = process.env.MONGODB_URI || password.getMongoString();
 
 // Setup mongoose options to use newer functionality
 const mongooseOptions = {
@@ -52,6 +52,7 @@ const redisClient = redis.createClient({
 
 // Pull in our routes
 const router = require('./router.js');
+const { NRTGame } = require('../util/nrtmsrts.js');
 
 const app = express();
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
@@ -96,6 +97,7 @@ const server = app.listen(port, (err) => {
 });
 
 const io = new Server(server);
+let game = new NRTGame();
 
 io.on('connection', (socket) => {
   // let all the clients know about this new connection (i.e. socket)
@@ -126,6 +128,20 @@ io.on('connection', (socket) => {
 
   socket.on('message', (msgObj) => {
     console.log('Received:', msgObj);
+    console.log(game);
+    if (msgObj.msg === 'reset') {
+      game = new NRTGame();
+      io.sockets.emit('gameUpdate', {
+        newGame: game,
+      });
+    }
+    if (game.makeMove(msgObj.msg, msgObj.username)) {
+      io.sockets.emit('gameUpdate', {
+        newGame: game,
+      });
+    } else {
+      console.log(`invalid move: "${msgObj.msg}"`);
+    }
     socket.broadcast.emit('message', {
       date: new Date().toLocaleTimeString(),
       msg: msgObj.msg,

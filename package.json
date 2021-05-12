@@ -16,7 +16,8 @@
     "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
-    "test": "echo \"Tests complete\""
+    "test": "echo \"Tests complete\"",
+    "testGame": "node ./util/nrtTester.js"
   },
   "keywords": [
     "Node",

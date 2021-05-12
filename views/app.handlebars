@@ -15,27 +15,16 @@
   <nav>
     <div class="navlink"><a href="/logout">Log out</a></div>
   </nav>
-  <p>NRTMSRTS</p>
+  <h1>NRTMSRTS</h1>
   <section id="game">
 
   </section>
   <section id="chat">
     <section>
-	<p>Username: <input type=text id=txtUsername></p>
-	<p>Message: <input type=text id=txtMsg></p>
-	<p><button id=btnSend>Send</button>
-</section>
-
-<section>
-	<h2>Server Messages</h2>
-	<div id=lblStatus><p>Type in a username and a message, then click "Send".</p></div>
-</section>
-
-<section>
-	<h2>Chat Messages</h2>
-	<div id=lblChat></div>
-</section>
-  </section>
+      <p><button id=btnJoin>Join Open Game</button></p>
+    <p>Your Username: <span id="username">{{{username}}}</span></p>
+    <p id="yourMove">Your Move: <input type=text id=txtMsg></p>
+    <p><button id=btnSend>Send Move</button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
   <script src="/assets/bundle.js"></script>
